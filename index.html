@@ -141,6 +141,47 @@
     .next-pills{flex-direction:column;align-items:stretch;width:100%;gap:12px}
     .next-pills span,.next-pills a{font-size:15px;padding:12px 14px;text-align:center}
   }
+
+  /* המלצות - קרוסלה */
+  .tst{padding:40px 0 72px;position:relative;z-index:3;overflow:hidden;text-align:center}
+  .tst-head{padding:0 16px}
+  .tst h2{font-weight:900;font-size:clamp(32px,4vw,56px);line-height:1.1;margin-top:18px;letter-spacing:-1px}
+  .tst h2 span{display:inline-block;background:var(--purple);color:#fff;border:4px solid var(--ink);border-radius:18px;padding:0 .22em .08em;box-shadow:6px 6px 0 var(--ink);transform:rotate(-1.5deg);margin-top:8px}
+  .sample-note{display:inline-block;margin-top:16px;font-size:14px;font-weight:700;color:var(--muted);border:2px dashed var(--muted);border-radius:999px;padding:4px 14px}
+  .stage{position:relative;margin-top:40px;height:460px;touch-action:pan-y;user-select:none}
+  .t-card{position:absolute;top:10px;left:50%;width:min(420px,80vw);text-align:right;border:3px solid var(--ink);border-radius:28px;box-shadow:7px 7px 0 var(--ink);padding:28px 26px 24px;
+    transition:transform .55s cubic-bezier(.3,1.25,.5,1),opacity .4s ease;will-change:transform;cursor:pointer}
+  .t-card.is-active{cursor:default}
+  .t-lime{background:var(--lime)}.t-pink{background:var(--pink)}.t-white{background:#fff}.t-field{background:var(--field)}
+  .t-purple{background:var(--purple);color:#fff}
+  .t-purple .who small{color:oklch(0.92 0.03 290)}
+  .stars{color:var(--ink);font-size:22px;letter-spacing:4px}
+  .t-purple .stars{color:var(--lime)}
+  .t-card h3{font-weight:900;font-size:22px;margin-top:12px}
+  .t-card blockquote{font-size:17px;line-height:1.6;margin-top:10px;font-weight:500}
+  .t-card blockquote b{font-weight:800}
+  .who{display:flex;align-items:center;gap:12px;margin-top:20px}
+  .avatar{flex:none;width:50px;height:50px;border-radius:50%;background:var(--ink);color:#fff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:21px}
+  .t-purple .avatar{background:var(--lime);color:var(--ink)}
+  .who b{display:block;font-weight:800;font-size:17px}
+  .who small{display:block;color:var(--muted);font-size:15px;font-weight:500}
+  .t-pill{display:inline-block;margin-top:16px;border:2.5px solid var(--ink);border-radius:999px;padding:5px 14px;font-weight:800;font-size:14px;background:#fff;color:var(--ink)}
+  .t-white .t-pill,.t-field .t-pill{background:var(--lime)}
+  .t-controls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:8px}
+  .t-btn{width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);background:#fff;box-shadow:4px 4px 0 var(--ink);font:inherit;font-size:24px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .12s ease,box-shadow .12s ease}
+  .t-btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .t-btn:focus-visible,.t-dot:focus-visible{outline:none;box-shadow:0 0 0 5px var(--lime)}
+  .t-btn.next-btn{background:var(--lime)}
+  .t-dots{display:flex;gap:8px}
+  .t-dot{width:12px;height:12px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;cursor:pointer;padding:0;transition:width .3s ease,background .3s ease}
+  .t-dot[aria-current="true"]{width:32px;background:var(--purple)}
+  @media (prefers-reduced-motion:reduce){.t-card,.t-dot{transition:none}}
+  @media (max-width:600px){
+    .stage{margin-top:28px}
+    .t-card{padding:22px 18px 20px;border-radius:22px;box-shadow:5px 5px 0 var(--ink)}
+    .t-card h3{font-size:19px}
+    .t-card blockquote{font-size:16px}
+  }
 </style>
 </head>
 <body>
@@ -175,6 +216,62 @@
       <div class="card alert pop"><b>Figma מתחדש בעוד 14 יום</b><span>להשאיר או לבטל?</span></div>
     </section>
   </main>
+  <section class="tst" aria-roledescription="קרוסלה" aria-label="המלצות">
+    <div class="tst-head">
+      <span class="tag">מה אומרים עלינו</span>
+      <h2>פחות חיובים מפתיעים,<br><span>יותר שקט.</span></h2>
+      <p class="sample-note">טקסטים לדוגמה - יוחלפו בציטוטים אמיתיים מקבוצת הבדיקה</p>
+    </div>
+    <div class="stage" id="t-stage" aria-live="polite">
+      <article class="t-card t-lime" role="group" aria-roledescription="המלצה" aria-label="1 מתוך 6">
+        <div class="stars" aria-label="5 כוכבים">★★★★★</div>
+        <h3>סוף סוף בלי הפתעות בכרטיס</h3>
+        <blockquote>גיליתי שאני משלמת על שלוש אפליקציות שלא פתחתי חצי שנה. <b>ההתראה הגיעה 14 יום לפני החידוש</b>, והספקתי לבטל את כולן בזמן.</blockquote>
+        <div class="who"><span class="avatar" aria-hidden="true">נ</span><div><b>נועה, 29</b><small>מעצבת פרילנסרית</small></div></div>
+        <span class="t-pill">חוסכת 120 ₪ בחודש</span>
+      </article>
+      <article class="t-card t-white" role="group" aria-roledescription="המלצה" aria-label="2 מתוך 6">
+        <div class="stars" aria-label="5 כוכבים">★★★★★</div>
+        <h3>החלטה בלחיצה אחת</h3>
+        <blockquote>מגיע מייל, לוחצים <b>"להשאיר" או "סימון לביטול"</b>, וזהו. לא צריך לזכור תאריכים ולא לחפש בדפי האשראי.</blockquote>
+        <div class="who"><span class="avatar" aria-hidden="true">א</span><div><b>אורי, 34</b><small>מנהל מוצר</small></div></div>
+        <span class="t-pill">8 מנויים במעקב</span>
+      </article>
+      <article class="t-card t-pink" role="group" aria-roledescription="המלצה" aria-label="3 מתוך 6">
+        <div class="stars" aria-label="5 כוכבים">★★★★★</div>
+        <h3>ניסיון חינם כבר לא תופס אותי</h3>
+        <blockquote>תמיד שכחתי לבטל תקופות ניסיון ושילמתי על שנה שלמה. עכשיו <b>אני מקבלת התראה לפני שהחיוב הראשון יורד</b>, ומחליטה בראש שקט.</blockquote>
+        <div class="who"><span class="avatar" aria-hidden="true">מ</span><div><b>מיכל, 41</b><small>אמא לשלושה</small></div></div>
+        <span class="t-pill">0 חיובים מפתיעים</span>
+      </article>
+      <article class="t-card t-purple" role="group" aria-roledescription="המלצה" aria-label="4 מתוך 6">
+        <div class="stars" aria-label="5 כוכבים">★★★★★</div>
+        <h3>פתאום ברור לאן הכסף הולך</h3>
+        <blockquote>כל המנויים במסך אחד, <b>בשקלים ובדולרים</b>, עם תאריך החידוש הבא של כל אחד. בפעם הראשונה ראיתי כמה זה מצטבר.</blockquote>
+        <div class="who"><span class="avatar" aria-hidden="true">ד</span><div><b>דניאל, 26</b><small>סטודנט</small></div></div>
+        <span class="t-pill">חסך 300 ₪ בשנה</span>
+      </article>
+      <article class="t-card t-field" role="group" aria-roledescription="המלצה" aria-label="5 מתוך 6">
+        <div class="stars" aria-label="5 כוכבים">★★★★★</div>
+        <h3>המועד האחרון לביטול - בזמן</h3>
+        <blockquote>בחלק מהשירותים צריך לבטל כמה ימים לפני החידוש. <b>הרדאר מזכיר לי גם את המועד האחרון</b>, אז אני כבר לא מפספסת אותו.</blockquote>
+        <div class="who"><span class="avatar" aria-hidden="true">י</span><div><b>יעל, 32</b><small>רואת חשבון</small></div></div>
+        <span class="t-pill">ביטלה 2 מנויים בזמן</span>
+      </article>
+      <article class="t-card t-pink" role="group" aria-roledescription="המלצה" aria-label="6 מתוך 6">
+        <div class="stars" aria-label="5 כוכבים">★★★★★</div>
+        <h3>לקח לי חמש דקות להתחיל</h3>
+        <blockquote>הוספתי את כל המנויים בהפסקת קפה אחת. <b>מאז אני רק מקבל התראה כשצריך להחליט</b> - ולא חושב על זה בשאר הזמן.</blockquote>
+        <div class="who"><span class="avatar" aria-hidden="true">ע</span><div><b>עידו, 45</b><small>בעל עסק קטן</small></div></div>
+        <span class="t-pill">ממליץ לחברים</span>
+      </article>
+    </div>
+    <div class="t-controls">
+      <button class="t-btn" type="button" id="t-prev" aria-label="ההמלצה הקודמת">→</button>
+      <div class="t-dots" id="t-dots"></div>
+      <button class="t-btn next-btn" type="button" id="t-next" aria-label="ההמלצה הבאה">←</button>
+    </div>
+  </section>
   <section class="next" aria-label="הצעד הבא">
     <div class="next-card">
       <div class="clock" aria-hidden="true"><b>5</b><span>דקות</span></div>
@@ -187,5 +284,92 @@
     </div>
   </section>
 </div>
+<script>
+  // קרוסלת המלצות: הכרטיס הפעיל במרכז, השכנים בצדדים. חצים, נקודות, החלקה במגע ומקלדת.
+  (function () {
+    const stage = document.getElementById('t-stage');
+    const cards = [...stage.querySelectorAll('.t-card')];
+    const dots = document.getElementById('t-dots');
+    const n = cards.length;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let active = 0, timer = null;
+
+    cards.forEach((c, i) => {
+      const d = document.createElement('button');
+      d.className = 't-dot'; d.type = 'button';
+      d.setAttribute('aria-label', 'המלצה ' + (i + 1));
+      d.addEventListener('click', () => { go(i); restart(); });
+      dots.appendChild(d);
+      c.addEventListener('click', () => { if (i !== active) { go(i); restart(); } });
+    });
+
+    function offset(i) {
+      let d = i - active;
+      if (d > n / 2) d -= n;
+      if (d < -n / 2) d += n;
+      return d;
+    }
+
+    function layout() {
+      const w = cards[0].offsetWidth;
+      const shift = w * (innerWidth < 600 ? 0.94 : 0.9);
+      let tallest = 0;
+      cards.forEach((c, i) => {
+        const d = offset(i), ad = Math.abs(d);
+        // RTL: הכרטיס הבא מופיע משמאל
+        const x = -d * shift;
+        const scale = d === 0 ? 1 : 0.86;
+        c.style.transform = `translateX(calc(-50% + ${x}px)) scale(${scale}) rotate(${d * 3}deg)`;
+        c.style.opacity = ad > 1 ? (ad > 2 ? 0 : 0.5) : 1;
+        c.style.zIndex = 10 - ad;
+        c.style.pointerEvents = ad > 1 ? 'none' : 'auto';
+        c.classList.toggle('is-active', d === 0);
+        c.setAttribute('aria-hidden', String(d !== 0));
+        tallest = Math.max(tallest, c.offsetHeight);
+      });
+      stage.style.height = (tallest + 30) + 'px';
+      [...dots.children].forEach((d, i) => d.setAttribute('aria-current', String(i === active)));
+    }
+
+    function go(i) { active = (i + n) % n; layout(); }
+    const next = () => go(active + 1), prev = () => go(active - 1);
+
+    function restart() {
+      clearInterval(timer);
+      if (!still) timer = setInterval(next, 5000);
+    }
+    function pause() { clearInterval(timer); }
+
+    document.getElementById('t-next').addEventListener('click', () => { next(); restart(); });
+    document.getElementById('t-prev').addEventListener('click', () => { prev(); restart(); });
+
+    const section = stage.closest('.tst');
+    section.addEventListener('mouseenter', pause);
+    section.addEventListener('mouseleave', restart);
+    section.addEventListener('focusin', pause);
+    section.addEventListener('focusout', restart);
+    section.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') { next(); restart(); }
+      if (e.key === 'ArrowRight') { prev(); restart(); }
+    });
+
+    // החלקה: ימינה - הכרטיס שמשמאל נכנס למרכז (הבא), שמאלה - הקודם
+    let startX = null, startY = null;
+    stage.addEventListener('pointerdown', e => { startX = e.clientX; startY = e.clientY; pause(); });
+    stage.addEventListener('pointerup', e => {
+      if (startX === null) return;
+      const dx = e.clientX - startX, dy = e.clientY - startY;
+      startX = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { dx > 0 ? next() : prev(); }
+      restart();
+    });
+    stage.addEventListener('pointercancel', () => { startX = null; restart(); });
+
+    addEventListener('resize', layout);
+    if (document.fonts) document.fonts.ready.then(layout);
+    layout();
+    restart();
+  })();
+</script>
 </body>
 </html>
