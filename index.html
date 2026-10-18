@@ -150,8 +150,8 @@
   .sample-note{display:inline-block;margin-top:16px;font-size:14px;font-weight:700;color:var(--muted);border:2px dashed var(--muted);border-radius:999px;padding:4px 14px}
   .stage{position:relative;margin-top:40px;height:460px;touch-action:pan-y;user-select:none}
   .t-card{position:absolute;top:10px;left:50%;width:min(420px,80vw);text-align:right;border:3px solid var(--ink);border-radius:28px;box-shadow:7px 7px 0 var(--ink);padding:28px 26px 24px;
-    transition:transform .55s cubic-bezier(.3,1.25,.5,1),opacity .4s ease;will-change:transform;cursor:pointer}
-  .t-card.is-active{cursor:default}
+    transition:transform .9s cubic-bezier(.45,.05,.25,1),opacity .7s ease;will-change:transform;cursor:grab}
+  .stage.dragging .t-card{cursor:grabbing}
   .t-lime{background:var(--lime)}.t-pink{background:var(--pink)}.t-white{background:#fff}.t-field{background:var(--field)}
   .t-purple{background:var(--purple);color:#fff}
   .t-purple .who small{color:oklch(0.92 0.03 290)}
@@ -167,13 +167,10 @@
   .who small{display:block;color:var(--muted);font-size:15px;font-weight:500}
   .t-pill{display:inline-block;margin-top:16px;border:2.5px solid var(--ink);border-radius:999px;padding:5px 14px;font-weight:800;font-size:14px;background:#fff;color:var(--ink)}
   .t-white .t-pill,.t-field .t-pill{background:var(--lime)}
-  .t-controls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:8px}
-  .t-btn{width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);background:#fff;box-shadow:4px 4px 0 var(--ink);font:inherit;font-size:24px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .12s ease,box-shadow .12s ease}
-  .t-btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-  .t-btn:focus-visible,.t-dot:focus-visible{outline:none;box-shadow:0 0 0 5px var(--lime)}
-  .t-btn.next-btn{background:var(--lime)}
+  .t-controls{display:flex;justify-content:center;align-items:center;margin-top:12px}
+  .t-dot:focus-visible{outline:none;box-shadow:0 0 0 5px var(--lime)}
   .t-dots{display:flex;gap:8px}
-  .t-dot{width:12px;height:12px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;cursor:pointer;padding:0;transition:width .3s ease,background .3s ease}
+  .t-dot{width:14px;height:14px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;cursor:pointer;padding:0;transition:width .6s ease,background .6s ease}
   .t-dot[aria-current="true"]{width:32px;background:var(--purple)}
   @media (prefers-reduced-motion:reduce){.t-card,.t-dot{transition:none}}
   @media (max-width:600px){
@@ -267,9 +264,7 @@
       </article>
     </div>
     <div class="t-controls">
-      <button class="t-btn" type="button" id="t-prev" aria-label="ההמלצה הקודמת">→</button>
       <div class="t-dots" id="t-dots"></div>
-      <button class="t-btn next-btn" type="button" id="t-next" aria-label="ההמלצה הבאה">←</button>
     </div>
   </section>
   <section class="next" aria-label="הצעד הבא">
@@ -285,14 +280,14 @@
   </section>
 </div>
 <script>
-  // קרוסלת המלצות: הכרטיס הפעיל במרכז, השכנים בצדדים. חצים, נקודות, החלקה במגע ומקלדת.
+  // קרוסלת המלצות: זזה לבד, הכרטיס הפעיל במרכז. גרירה בעכבר או באצבע, לחיצה על כרטיס בצד, נקודות ומקלדת.
   (function () {
     const stage = document.getElementById('t-stage');
     const cards = [...stage.querySelectorAll('.t-card')];
     const dots = document.getElementById('t-dots');
     const n = cards.length;
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let active = 0, timer = null;
+    let active = 0, timer = null, dragged = false;
 
     cards.forEach((c, i) => {
       const d = document.createElement('button');
@@ -300,7 +295,7 @@
       d.setAttribute('aria-label', 'המלצה ' + (i + 1));
       d.addEventListener('click', () => { go(i); restart(); });
       dots.appendChild(d);
-      c.addEventListener('click', () => { if (i !== active) { go(i); restart(); } });
+      c.addEventListener('click', () => { if (!dragged && i !== active) { go(i); restart(); } });
     });
 
     function offset(i) {
@@ -336,34 +331,33 @@
 
     function restart() {
       clearInterval(timer);
-      if (!still) timer = setInterval(next, 5000);
+      if (!still) timer = setInterval(next, 3500);
     }
     function pause() { clearInterval(timer); }
 
-    document.getElementById('t-next').addEventListener('click', () => { next(); restart(); });
-    document.getElementById('t-prev').addEventListener('click', () => { prev(); restart(); });
-
     const section = stage.closest('.tst');
-    section.addEventListener('mouseenter', pause);
-    section.addEventListener('mouseleave', restart);
-    section.addEventListener('focusin', pause);
-    section.addEventListener('focusout', restart);
+    section.tabIndex = -1;
+    document.addEventListener('visibilitychange', () => document.hidden ? pause() : restart());
     section.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft') { next(); restart(); }
       if (e.key === 'ArrowRight') { prev(); restart(); }
     });
 
-    // החלקה: ימינה - הכרטיס שמשמאל נכנס למרכז (הבא), שמאלה - הקודם
+    // גרירה בעכבר או החלקה באצבע: ימינה - הכרטיס שמשמאל נכנס למרכז (הבא), שמאלה - הקודם
     let startX = null, startY = null;
-    stage.addEventListener('pointerdown', e => { startX = e.clientX; startY = e.clientY; pause(); });
-    stage.addEventListener('pointerup', e => {
+    stage.addEventListener('pointerdown', e => {
+      startX = e.clientX; startY = e.clientY; dragged = false;
+      stage.classList.add('dragging'); pause();
+    });
+    addEventListener('pointerup', e => {
       if (startX === null) return;
       const dx = e.clientX - startX, dy = e.clientY - startY;
-      startX = null;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { dx > 0 ? next() : prev(); }
+      startX = null; stage.classList.remove('dragging');
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { dragged = true; dx > 0 ? next() : prev(); }
       restart();
     });
-    stage.addEventListener('pointercancel', () => { startX = null; restart(); });
+    addEventListener('pointercancel', () => { startX = null; stage.classList.remove('dragging'); restart(); });
+    stage.addEventListener('dragstart', e => e.preventDefault());
 
     addEventListener('resize', layout);
     if (document.fonts) document.fonts.ready.then(layout);
