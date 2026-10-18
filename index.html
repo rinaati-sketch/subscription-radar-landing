@@ -88,18 +88,55 @@
     .nav-login{font-size:15px}
     .hero{grid-template-columns:1fr;padding:8px 16px 56px;gap:24px;text-align:center}
     .sub{margin-inline:auto}
-    .visual{min-height:auto;padding:30px 0 150px}
-    .b1{width:110%;max-width:520px}
+    .visual{min-height:auto;padding:70px 0 150px}
+    .b1{width:min(92vw,460px)}
     .b2{width:80px;height:80px;left:auto;right:0}
-    .sq{width:64px;height:64px;left:6%;bottom:8px}
+    .sq{width:64px;height:64px;left:6%;top:22px;bottom:auto}
     .panel{padding:18px;text-align:right}
     .ph b{font-size:21px}
     .row{padding:12px 14px}
     .row b{font-size:17px}
-    .alert{bottom:24px;left:4%;width:280px;text-align:right}
+    .alert{bottom:24px;left:4%;width:300px;max-width:88%;text-align:right}
+    .alert b{font-size:17px}
     .brutal-btn{width:100%;max-width:360px}
     .cta{flex-direction:column;gap:14px}
     .note{margin-inline:auto}
+  }
+
+  /* אופציה ב: כרטיס לבן עם שעון 5 דקות */
+  .next{padding:24px clamp(16px,4.5vw,64px) 72px;position:relative;z-index:3;display:flex;justify-content:center}
+  .next-card{width:min(1100px,100%);min-height:34vh;background:#fff;border:3px solid var(--ink);border-radius:28px;box-shadow:8px 8px 0 var(--ink);
+    display:grid;grid-template-columns:auto 1fr;align-items:center;gap:clamp(24px,4vw,56px);padding:clamp(28px,4vw,56px)}
+  .clock{width:clamp(150px,16vw,220px);aspect-ratio:1;border-radius:50%;background:var(--lime);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-6deg);position:relative}
+  .clock b{font-size:clamp(64px,7vw,96px);font-weight:900;line-height:.9}
+  .clock span{font-weight:800;font-size:clamp(18px,1.8vw,24px)}
+  .clock::after{content:"";position:absolute;width:44px;height:44px;border-radius:50%;background:var(--pink);border:3px solid var(--ink);top:-6px;left:-6px}
+  .next .tag{background:var(--purple);color:#fff}
+  .next h2{font-weight:900;font-size:clamp(30px,3.4vw,46px);line-height:1.1;margin-top:18px;letter-spacing:-1px}
+  .next p{font-size:clamp(17px,1.5vw,21px);line-height:1.6;margin-top:14px;max-width:580px;color:var(--muted);font-weight:500}
+  .next-pills{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+  .next-pills span{border:3px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:800;font-size:17px;box-shadow:4px 4px 0 var(--ink)}
+  .np1{background:var(--field)}.np2{background:var(--pink)}
+  @media (max-width:900px){.next-card{grid-template-columns:1fr;text-align:center;justify-items:center}.next p{margin-inline:auto}.next-pills{justify-content:center}}
+
+  /* טלפון */
+  @media (max-width:600px){
+    .nav{padding:20px 16px}
+    .nav img{height:42px}
+    .nav-login{font-size:14px}
+    .visual{padding:40px 0 130px}
+    .b1{width:112%}
+    .m{white-space:nowrap}
+    .row .pill{font-size:13px;padding:4px 10px}
+    .next{padding:8px 16px 48px}
+    .next-card{gap:20px;padding:28px 18px;border-radius:22px;box-shadow:6px 6px 0 var(--ink)}
+    .clock{width:118px}
+    .clock b{font-size:56px}
+    .clock span{font-size:17px}
+    .clock::after{width:32px;height:32px}
+    .next-pills{flex-direction:column;align-items:stretch;width:100%;gap:12px}
+    .next-pills span{font-size:15px;padding:10px 14px;text-align:center}
   }
 </style>
 </head>
@@ -135,7 +172,17 @@
       <div class="card alert pop"><b>Figma מתחדש בעוד 14 יום</b><span>להשאיר או לבטל?</span></div>
     </section>
   </main>
-  <p class="closing"><span>והרדאר עצמו? המנוי היחיד שלא תצטרכו להחליט עליו.</span></p>
+  <section class="next" aria-label="הצעד הבא">
+    <div class="next-card">
+      <div class="clock" aria-hidden="true"><b>5</b><span>דקות</span></div>
+      <div>
+        <span class="tag">מכאן מתחילים</span>
+        <h2>הצעד הבא: 5 דקות לשליטה מלאה</h2>
+        <p>נקבע שיחה קצרה השבוע. והרדאר עצמו? המנוי היחיד שלא תצטרכו להחליט עליו.</p>
+        <div class="next-pills"><span class="np1">שיחה קצרה של 5 דקות בלבד</span><span class="np2">חינם לקבוצת הבדיקה הראשונה</span></div>
+      </div>
+    </div>
+  </section>
 </div>
 </body>
 </html>
