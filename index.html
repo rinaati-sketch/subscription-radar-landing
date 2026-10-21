@@ -179,6 +179,26 @@
     .t-card h3{font-size:19px}
     .t-card blockquote{font-size:16px}
   }
+
+  /* בוט שאלות (Botpress): לשונית קבועה בצד ימין, נשארת במקומה בזמן הגלילה */
+  .ask-tab{position:fixed;z-index:50;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;
+    padding:18px 10px 18px 12px;margin-right:env(safe-area-inset-right);font:800 17px/1 "Rubik",system-ui,sans-serif;color:#fff;background:var(--purple);
+    border:3px solid var(--ink);border-right:0;border-radius:16px 0 0 16px;box-shadow:-5px 5px 0 var(--ink);cursor:pointer;
+    transition:transform .15s ease,box-shadow .15s ease,opacity .2s ease}
+  .ask-tab span{writing-mode:vertical-rl;letter-spacing:.5px}
+  .ask-tab svg{width:24px;height:24px;flex:none}
+  .ask-tab i{position:absolute;top:-7px;left:-7px;width:16px;height:16px;border-radius:50%;background:var(--lime);border:2.5px solid var(--ink)}
+  .ask-tab:hover{transform:translate(-4px,-50%);box-shadow:-7px 5px 0 var(--ink)}
+  .ask-tab:focus-visible{outline:none;box-shadow:-5px 5px 0 var(--ink),0 0 0 5px var(--lime)}
+  .ask-tab.is-open{opacity:0;pointer-events:none}
+  .ask-tab.nudge{animation:ask-nudge .9s ease 1.2s 2}
+  @keyframes ask-nudge{0%,100%{transform:translateY(-50%)}40%{transform:translate(-8px,-50%)}}
+  @media (prefers-reduced-motion:reduce){.ask-tab,.ask-tab.nudge{transition:none;animation:none}}
+  @media (max-width:600px){
+    .ask-tab{padding:12px 6px 12px 8px;gap:7px;font-size:14px;border-width:2.5px;border-radius:12px 0 0 12px;box-shadow:-3px 3px 0 var(--ink)}
+    .ask-tab svg{width:19px;height:19px}
+    .ask-tab i{width:12px;height:12px;top:-5px;left:-5px}
+  }
 </style>
 </head>
 <body>
@@ -363,6 +383,36 @@
     if (document.fonts) document.fonts.ready.then(layout);
     layout();
     restart();
+  })();
+</script>
+<button class="ask-tab nudge" id="ask-tab" type="button" aria-label="יש שאלה? פתיחת צ'אט עם הבוט">
+  <i aria-hidden="true"></i>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z"/></svg>
+  <span>יש שאלה?</span>
+</button>
+<script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/10/21/17/20261021172711-RFQ73D71.js" defer></script>
+<script>
+  // הלשונית פותחת את חלון הבוט. הבועה של Botpress מוסתרת (היא בתוך shadow DOM), והלשונית נעלמת כשהחלון פתוח
+  (function () {
+    const tab = document.getElementById('ask-tab');
+    tab.addEventListener('click', () => window.botpress && window.botpress.open());
+    let styled = false, wasOpen = false;
+    setInterval(() => {
+      const host = document.querySelector('.bpChatContainer > div');
+      if (!styled && host && host.shadowRoot) {
+        const st = document.createElement('style');
+        st.textContent = '.bpFabWrapper{display:none!important}';
+        host.shadowRoot.appendChild(st);
+        styled = true;
+      }
+      const open = !!window.botpress && window.botpress.state === 'opened';
+      if (open !== wasOpen) {
+        tab.classList.toggle('is-open', open);
+        if (!open) tab.focus({ preventScroll: true });
+        wasOpen = open;
+      }
+    }, 250);
   })();
 </script>
 </body>
