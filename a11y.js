@@ -1,4 +1,4 @@
-// תפריט נגישות: כפתור קבוע בפינה השמאלית התחתונה, ותפריט עם התאמות תצוגה.
+// תפריט נגישות: כפתור קבוע בצד ימין למעלה של המסך (בעברית העין מתחילה לסרוק מימין למעלה), ותפריט עם התאמות תצוגה.
 // ההגדרות נשמרות בדפדפן של הגולש (localStorage) וחלות על כל עמודי האתר.
 (function () {
   const KEY = 'radar_a11y';
@@ -18,13 +18,14 @@
   try { state = Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
 
   const css = `
-  .a11y-btn{position:fixed;z-index:60;left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));width:56px;height:56px;border-radius:50%;
+  .a11y-btn{position:fixed;z-index:60;right:max(16px,env(safe-area-inset-right));top:var(--a11y-top);width:56px;height:56px;border-radius:50%;
     display:flex;align-items:center;justify-content:center;background:var(--purple);color:#fff;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);cursor:pointer;
     transition:transform .12s ease,box-shadow .12s ease}
   .a11y-btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
   .a11y-btn svg{width:30px;height:30px}
-  .a11y-panel{position:fixed;z-index:61;left:max(16px,env(safe-area-inset-left));bottom:calc(max(16px,env(safe-area-inset-bottom)) + 70px);width:min(340px,calc(100vw - 32px));
-    max-height:calc(100vh - 110px);overflow:auto;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);
+  :root{--a11y-top:clamp(84px,18vh,150px)}
+  .a11y-panel{position:fixed;z-index:61;right:88px;top:var(--a11y-top);width:min(340px,calc(100vw - 104px));
+    max-height:calc(100vh - var(--a11y-top) - 16px);overflow:auto;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);
     padding:18px;font-family:"Rubik",system-ui,sans-serif;direction:rtl;text-align:right}
   .a11y-panel[hidden]{display:none}
   .a11y-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -40,7 +41,12 @@
   .a11y-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
   .a11y-reset{min-height:44px;padding:0 16px;border-radius:12px;border:2.5px solid var(--ink);background:var(--lime);color:var(--ink);font:800 15px/1 "Rubik",sans-serif;cursor:pointer}
   .a11y-foot a{color:var(--purple);font-weight:800;font-size:15px;text-decoration:underline;text-underline-offset:3px}
-  @media (max-width:600px){.a11y-btn{width:50px;height:50px;box-shadow:3px 3px 0 var(--ink)}.a11y-btn svg{width:26px;height:26px}.a11y-panel{bottom:calc(max(16px,env(safe-area-inset-bottom)) + 64px)}}
+  @media (max-width:600px){
+    :root{--a11y-top:88px}
+    .a11y-btn{width:50px;height:50px;box-shadow:3px 3px 0 var(--ink)}
+    .a11y-btn svg{width:26px;height:26px}
+    .a11y-panel{right:16px;left:16px;width:auto;top:calc(var(--a11y-top) + 58px);max-height:calc(100vh - var(--a11y-top) - 74px)}
+  }
 
   /* ההתאמות עצמן */
   html.a11y-contrast{--bg:#fff;--field:#fff;--muted:var(--ink)}

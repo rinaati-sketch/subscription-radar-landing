@@ -203,7 +203,7 @@
   .site-foot a{color:var(--purple);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 
   /* בוט שאלות (Botpress): לשונית קבועה בצד ימין, נשארת במקומה בזמן הגלילה */
-  .ask-tab{position:fixed;z-index:50;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;
+  .ask-tab{position:fixed;z-index:50;right:0;top:max(50%,calc(var(--a11y-top,84px) + 156px));transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;
     padding:18px 10px 18px 12px;margin-right:env(safe-area-inset-right);font:800 17px/1 "Rubik",system-ui,sans-serif;color:#fff;background:var(--purple);
     border:3px solid var(--ink);border-right:0;border-radius:16px 0 0 16px;box-shadow:-5px 5px 0 var(--ink);cursor:pointer;
     transition:transform .15s ease,box-shadow .15s ease,opacity .2s ease}
@@ -217,7 +217,7 @@
   @keyframes ask-nudge{0%,100%{transform:translateY(-50%)}40%{transform:translate(-8px,-50%)}}
   @media (prefers-reduced-motion:reduce){.ask-tab,.ask-tab.nudge{transition:none;animation:none}}
   @media (max-width:600px){
-    .ask-tab{padding:12px 6px 12px 8px;gap:7px;font-size:14px;border-width:2.5px;border-radius:12px 0 0 12px;box-shadow:-3px 3px 0 var(--ink)}
+    .ask-tab{top:max(50%,calc(var(--a11y-top,88px) + 124px));padding:12px 6px 12px 8px;gap:7px;font-size:14px;border-width:2.5px;border-radius:12px 0 0 12px;box-shadow:-3px 3px 0 var(--ink)}
     .ask-tab svg{width:19px;height:19px}
     .ask-tab i{width:12px;height:12px;top:-5px;left:-5px}
   }
