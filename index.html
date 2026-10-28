@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>רדאר מנויים</title>
 <meta name="description" content="מקבלים התראה 14 יום לפני כל חידוש - ומחליטים בזמן אם להשאיר או לבטל.">
+<!-- תצוגה מקדימה בשיתוף קישור (וואטסאפ, פייסבוק, לינקדאין ועוד) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="רדאר מנויים">
+<meta property="og:locale" content="he_IL">
+<meta property="og:title" content="רדאר מנויים">
+<meta property="og:description" content="מקבלים התראה 14 יום לפני כל חידוש - ומחליטים בזמן אם להשאיר או לבטל.">
+<meta property="og:url" content="https://rinaati-sketch.github.io/subscription-radar-landing/">
+<meta property="og:image" content="https://rinaati-sketch.github.io/subscription-radar-landing/og-icon.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="הלוגו של רדאר מנויים">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rinaati-sketch.github.io/subscription-radar-landing/og-icon.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3QgeD0iNjQiIHk9IjY0IiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgcng9Ijk2IiBmaWxsPSIjMTQxMTIwIi8+CiAgPHJlY3QgeD0iNDAiIHk9IjQwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgcng9Ijk2IiBmaWxsPSIjNzYzYmYxIiBzdHJva2U9IiMxNDExMjAiIHN0cm9rZS13aWR0aD0iMjIiLz4KICA8Y2lyY2xlIGN4PSIyNDAiIGN5PSIyNDAiIHI9IjEyMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzVmMzJkIiBzdHJva2Utd2lkdGg9IjIyIi8+CiAgPGNpcmNsZSBjeD0iMjQwIiBjeT0iMjQwIiByPSI2MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzVmMzJkIiBzdHJva2Utd2lkdGg9IjIyIiBvcGFjaXR5PSIwLjg1Ii8+CiAgPGxpbmUgeDE9IjI0MCIgeTE9IjI0MCIgeDI9IjMyMiIgeTI9IjE1OCIgc3Ryb2tlPSIjYzVmMzJkIiBzdHJva2Utd2lkdGg9IjI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSIyNDAiIGN5PSIyNDAiIHI9IjI0IiBmaWxsPSIjYzVmMzJkIiBzdHJva2U9IiMxNDExMjAiIHN0cm9rZS13aWR0aD0iMTAiLz4KICA8Y2lyY2xlIGN4PSIzMzAiIGN5PSIxNDgiIHI9IjM2IiBmaWxsPSIjZmM0NTlmIiBzdHJva2U9IiMxNDExMjAiIHN0cm9rZS13aWR0aD0iMTIiLz4KPC9zdmc+Cg==">
 <link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAflBMVEVMaXETEB8SEiMTEB8TEB8TESATEB8TESAUEB8UEB92O/EUESDF8y2510tvN+MlGD16ROj8RZ8fFTawwmGhoIaDWtBcMLmpsXSKacCReq694T0bFCh/T9ubkZWWhKNnNNJKKJQzH2E9InhbZjV7lCe5NXo/ODOfwip2JlXePo/AAkgAAAAACnRSTlMA1wli7yOpRYeLKUnDfAAAAAlwSFlzAAAD6AAAA+gBtXtSawAAAv9JREFUWMPtl9mamzAMRicLyRTb4Imx2SFAtnn/F6y8kEBY7K/tRS9GV0mIjn5JXsTHx4/9czvuPpdtd9yue3uHPVq3/eG47L49IBc7eEvhN/A0PIs6WLJanBupYl6EB+pD4duslog5whbiN4HvYGfQMJMF5N/4bgaEzTQB0B84AvxmJgkQIFz9/TqfStijcOaflCec6o+BEPXz93Yi4YjQ+d05jTOsjFWFf87RoEliUoXdewY0wkPr0OP7+3rLzZ+CSSs/EaqH/qkKzqKyKiOG8R09vqSFfZ6g5zAC/EJo2AMZPgPhfTJdrvy/rn2YE6yF7TIgBv+SDvt204DvPlEAIG8RAPGzZFSRNuwVDADHJUAK/sWzmKbqVwV4nHw7gEL9dPyiZIQQVhZ+essl4fHs9RoAEii1EtJbjLMbysMcdb4dQCEBpbuU0SPoIpEtZaJtuwxzOwAqUPXxU/VLCf5EMhOMIzsAWigrWIA/74kAUJ8zTOyADDOTQCqPn/B2B/1QBlOewgagRiYjTG7b7tKhO6MxUTlUfX9WANz0gBDgNB2ov9yoX+l8ElOfNYD5DyUEOOEFy42kKppoevUHCk4K4KpgVAOBLvdLDqsv0jWAhqTWLuBnF0C0COGmUT3tu8CtADg+qF4H7HkexLoEPsGZfR1URiZIYDpcERsB3GklFtgst1juoipNI7knqFmkicNujPtKRa/dSI0A5rAbpQRznvBYu+uwlLwErJ9Ipdl844tFVjf2nQAyCVK8XzPxC2sFSLFvpyonw4PSBvApk2fQC8HlOT8SNQG830zqYsuiNOEJ9FF+iYf3hLyZxoDJ3aiCvoyNM5J34xgwcztzHVkpSd6eiQlgu58bcIqkqqqUTx+0E4CcUGrnCSWQJRjfjTKHxhmgBOynQ9LZ0V/ogXVmznQjCJXAdE6DJFBjr0PQolkBkgAa8lasTYuBaHMztXtL0zZATuGC5a+RfWHo322cBv6leV3lsfmbNwaNsLy1rL6zmHXtHZfN+3mt/B/tN+BfgTnOqgIhAAAAAElFTkSuQmCC">
 <link rel="preconnect" href="https://fonts.googleapis.com">
