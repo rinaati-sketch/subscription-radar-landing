@@ -144,7 +144,7 @@
         </div>
         <div class="field">
           <label for="phone">טלפון</label>
-          <input id="phone" name="phone" type="tel" dir="ltr" autocomplete="tel" inputmode="tel" placeholder="050-0000000" required aria-describedby="phone-err">
+          <input id="phone" name="phone" type="tel" dir="ltr" autocomplete="tel" inputmode="tel" placeholder="050-0000000" maxlength="17" required aria-describedby="phone-err">
           <div class="err" id="phone-err">יש להזין מספר טלפון תקין.</div>
         </div>
         <div class="field">
@@ -180,9 +180,26 @@
   // הטופס עדיין לא מחובר לשום מקום - הפרטים לא נשלחים ולא נשמרים.
   // החיבור לאפליקציית איסוף הלידים ייעשה כאן, בתוך submit.
   const form = document.getElementById('call-form');
+  // בדיקת מספר טלפון ישראלי לפי קידומות. מחזיר הודעת שגיאה, או מחרוזת ריקה אם המספר תקין.
+  // נייד: 05X + 7 ספרות (10 ספרות). מספרי 07X: 10 ספרות. קווי: 02/03/04/08/09 + 7 ספרות (9 ספרות).
+  // מותר להקליד מקפים, רווחים, סוגריים וקידומת +972.
+  function phoneError(v) {
+    const raw = v.trim();
+    if (!raw) return 'יש להזין מספר טלפון.';
+    if (/[^\d\s\-()+]/.test(raw) || /.\+/.test(raw)) return 'מספר טלפון יכול להכיל ספרות בלבד.';
+    let d = raw.replace(/\D/g, '');
+    if (d.startsWith('972')) d = '0' + d.slice(3).replace(/^0/, '');
+    else if (raw.startsWith('+')) return 'יש להזין מספר טלפון ישראלי.';
+    if (!d.startsWith('0')) return 'מספר טלפון צריך להתחיל ב-0, למשל 050-1234567.';
+    if (/^05/.test(d)) return /^05\d{8}$/.test(d) ? '' : 'מספר נייד צריך להכיל 10 ספרות, למשל 050-1234567.';
+    if (/^070/.test(d)) return 'הקידומת אינה תקינה. יש להזין מספר ישראלי, למשל 050-1234567.';
+    if (/^07/.test(d)) return /^07\d{8}$/.test(d) ? '' : 'מספר שמתחיל ב-07 צריך להכיל 10 ספרות, למשל 072-1234567.';
+    if (/^0[23489]/.test(d)) return /^0[23489]\d{7}$/.test(d) ? '' : 'מספר קווי צריך להכיל 9 ספרות, למשל 03-1234567.';
+    return 'הקידומת אינה תקינה. יש להזין מספר ישראלי, למשל 050-1234567.';
+  }
   const checks = {
     name: v => v.trim().length >= 2,
-    phone: v => v.replace(/[^0-9]/g, '').length >= 9,
+    phone: v => phoneError(v) === '',
     time: v => v !== ''
   };
   function check(id) {
@@ -190,6 +207,7 @@
     const ok = checks[id](el.value);
     el.closest('.field').classList.toggle('has-error', !ok);
     el.setAttribute('aria-invalid', String(!ok));
+    if (id === 'phone') document.getElementById('phone-err').textContent = phoneError(el.value) || 'יש להזין מספר טלפון תקין.';
     return ok;
   }
   Object.keys(checks).forEach(id => {
