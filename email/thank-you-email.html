@@ -16,12 +16,14 @@
   .btn:hover{background:#141120 !important;}
   @media only screen and (max-width:620px){
     .wrap{width:100% !important;}
-    .px{padding-left:20px !important;padding-right:20px !important;}
+    .outer{padding:16px 6px !important;}
+    .px{padding-left:14px !important;padding-right:14px !important;}
+    .time-text{font-size:17px !important;}
     .h1{font-size:38px !important;}
     .h2{font-size:26px !important;}
     .hero-gif{width:100px !important;height:100px !important;}
-    .stack{display:block !important;width:auto !important;text-align:right !important;padding:0 18px 16px !important;}
-    .time-cell{display:block !important;width:auto !important;padding-bottom:10px !important;}
+    .stack{display:block !important;width:auto !important;text-align:right !important;padding:0 12px 14px !important;}
+    .time-cell{display:block !important;width:auto !important;padding:12px 12px 10px !important;}
   }
 </style>
 <!-- אנימציות CSS: עובדות ב-Apple Mail וב-iOS. ג'ימייל מתעלם מהבלוק הזה, ושם האנימציה היא ה-GIF -->
@@ -42,9 +44,9 @@
 </div>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff8ec" style="background:#fff8ec;" dir="rtl">
-<tr><td align="center" style="padding:28px 12px;">
+<tr><td class="outer" align="center" style="padding:28px 12px;">
 
-  <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;" dir="rtl">
+  <table role="presentation" class="wrap" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;" dir="rtl">
 
     <!-- לוגו -->
     <tr><td align="right" class="px" style="padding:4px 8px 22px 8px;">
@@ -75,7 +77,7 @@
             <tr>
               <td class="time-cell" align="right" style="padding:16px 18px;font-family:'Rubik',Arial,Helvetica,sans-serif;color:#141120;text-align:right;">
                 <div style="font-size:15px;font-weight:500;color:#4c4a62;">מתי נוח לדבר?</div>
-                <div style="font-size:19px;font-weight:800;margin-top:2px;white-space:nowrap;">{{time}}&rlm;</div>
+                <div class="time-text" style="font-size:19px;font-weight:800;margin-top:2px;white-space:nowrap;">{{time}}&rlm;</div>
               </td>
               <td class="stack" align="left" width="1" style="padding:16px 18px;white-space:nowrap;">
                 <span class="wig" style="display:inline-block;background:#fc459f;border:2.5px solid #141120;border-radius:999px;padding:4px 14px;font-family:'Rubik',Arial,Helvetica,sans-serif;font-weight:800;font-size:15px;color:#141120;white-space:nowrap;">5 דקות</span>
