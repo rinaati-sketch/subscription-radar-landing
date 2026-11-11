@@ -19,7 +19,9 @@
     .px{padding-left:20px !important;padding-right:20px !important;}
     .h1{font-size:38px !important;}
     .h2{font-size:26px !important;}
-    .hero-gif{width:150px !important;height:150px !important;}
+    .hero-gif{width:100px !important;height:100px !important;}
+    .stack{display:block !important;width:auto !important;text-align:right !important;padding:0 18px 16px !important;}
+    .time-cell{display:block !important;width:auto !important;padding-bottom:10px !important;}
   }
 </style>
 <!-- אנימציות CSS: עובדות ב-Apple Mail וב-iOS. ג'ימייל מתעלם מהבלוק הזה, ושם האנימציה היא ה-GIF -->
@@ -57,7 +59,7 @@
 
         <!-- אזור פתיחה -->
         <tr><td align="center" style="background:#c5f32d;border-bottom:3px solid #141120;border-radius:19px 19px 0 0;padding:34px 24px 26px;">
-          <img class="hero-gif" src="https://rinaati-sketch.github.io/subscription-radar-landing/email/email-radar.gif" width="180" height="180" alt="" style="width:180px;height:180px;display:block;margin:0 auto;">
+          <img class="hero-gif" src="https://rinaati-sketch.github.io/subscription-radar-landing/email/email-radar.gif" width="120" height="120" alt="" style="width:120px;height:120px;display:block;margin:0 auto;">
         </td></tr>
 
         <tr><td class="px" align="right" dir="rtl" style="padding:34px 40px 8px;font-family:'Rubik',Arial,Helvetica,sans-serif;color:#141120;text-align:right;">
@@ -71,11 +73,11 @@
         <tr><td class="px" style="padding:22px 40px 6px;">
           <table role="presentation" class="pop2" width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="border-collapse:separate;background:#fefcf6;border:3px solid #141120;border-radius:16px;">
             <tr>
-              <td align="right" style="padding:16px 18px;font-family:'Rubik',Arial,Helvetica,sans-serif;color:#141120;text-align:right;">
+              <td class="time-cell" align="right" style="padding:16px 18px;font-family:'Rubik',Arial,Helvetica,sans-serif;color:#141120;text-align:right;">
                 <div style="font-size:15px;font-weight:500;color:#4c4a62;">מתי נוח לדבר?</div>
-                <div style="font-size:20px;font-weight:800;margin-top:2px;">{{time}}&rlm;</div>
+                <div style="font-size:19px;font-weight:800;margin-top:2px;white-space:nowrap;">{{time}}&rlm;</div>
               </td>
-              <td align="left" width="1" style="padding:16px 18px;white-space:nowrap;">
+              <td class="stack" align="left" width="1" style="padding:16px 18px;white-space:nowrap;">
                 <span class="wig" style="display:inline-block;background:#fc459f;border:2.5px solid #141120;border-radius:999px;padding:4px 14px;font-family:'Rubik',Arial,Helvetica,sans-serif;font-weight:800;font-size:15px;color:#141120;white-space:nowrap;">5 דקות</span>
               </td>
             </tr>
