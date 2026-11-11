@@ -78,6 +78,7 @@
   .btn.light{background:var(--lime);color:var(--ink)}
   .actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px}
   .free{display:inline-block;background:var(--pink);border:3px solid var(--ink);border-radius:999px;padding:6px 16px;font-weight:800;font-size:15px;box-shadow:3px 3px 0 var(--ink);transform:rotate(-3deg)}
+  .send-err{color:oklch(0.5 0.22 355);font-weight:700;font-size:15px;margin:0 0 8px}
   .privacy{font-size:14px;color:var(--muted);line-height:1.5}
 
   .done{display:none;text-align:center;padding:12px 0}
@@ -162,6 +163,7 @@
           <button class="btn" type="submit">שליחה - תחזרו אליי</button>
           <span class="free">חינם לקבוצת הבדיקה הראשונה</span>
         </div>
+        <p class="send-err" id="send-err" role="alert" hidden>משהו השתבש בשליחה. נסו שוב בעוד רגע.</p>
         <p class="privacy">הפרטים ישמשו רק לשיחה החוזרת.</p>
       </form>
 
@@ -177,8 +179,8 @@
   <footer class="site-foot"><a href="accessibility.html">הצהרת נגישות</a></footer>
 </div>
 <script>
-  // הטופס עדיין לא מחובר לשום מקום - הפרטים לא נשלחים ולא נשמרים.
-  // החיבור לאפליקציית איסוף הלידים ייעשה כאן, בתוך submit.
+  // הפרטים נשלחים ל-webhook ב-Make (רדאר מנויים - לידים מדף הנחיתה).
+  const WEBHOOK_URL = 'https://hook.us2.make.com/wiqpwt1fpb26ohayaveugt6b4lvl2o32';
   const form = document.getElementById('call-form');
   // בדיקת מספר טלפון ישראלי לפי קידומות. מחזיר הודעת שגיאה, או מחרוזת ריקה אם המספר תקין.
   // נייד: 05X + 7 ספרות (10 ספרות). מספרי 07X: 10 ספרות. קווי: 02/03/04/08/09 + 7 ספרות (9 ספרות).
@@ -216,10 +218,33 @@
       if (document.getElementById(id).closest('.field').classList.contains('has-error')) check(id);
     });
   });
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const bad = Object.keys(checks).filter(id => !check(id));
     if (bad.length) { document.getElementById(bad[0]).focus(); return; }
+    const btn = form.querySelector('button[type=submit]');
+    const sendErr = document.getElementById('send-err');
+    sendErr.hidden = true;
+    btn.disabled = true;
+    const btnText = btn.textContent;
+    btn.textContent = 'שולח...';
+    const payload = new URLSearchParams({
+      name: document.getElementById('name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      time: document.getElementById('time').value,
+      source: 'subscription-radar-landing',
+      page: location.href,
+      sent_at: new Date().toISOString()
+    });
+    try {
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: payload });
+      if (!res.ok) throw new Error(res.status);
+    } catch (err) {
+      sendErr.hidden = false;
+      btn.disabled = false;
+      btn.textContent = btnText;
+      return;
+    }
     document.getElementById('done-name').textContent = document.getElementById('name').value.trim().split(' ')[0];
     document.getElementById('card').classList.add('sent');
     window.scrollTo({top: 0, behavior: 'smooth'});
