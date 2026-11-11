@@ -228,13 +228,11 @@
     btn.disabled = true;
     const btnText = btn.textContent;
     btn.textContent = 'שולח...';
+    // שלושה שדות בלבד: שם מלא, טלפון, מתי נוח לדבר
     const payload = new URLSearchParams({
-      name: document.getElementById('name').value.trim(),
+      full_name: document.getElementById('name').value.trim(),
       phone: document.getElementById('phone').value.trim(),
-      time: document.getElementById('time').value,
-      source: 'subscription-radar-landing',
-      page: location.href,
-      sent_at: new Date().toISOString()
+      best_time: document.getElementById('time').value
     });
     try {
       const res = await fetch(WEBHOOK_URL, { method: 'POST', body: payload });
