@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>אימות כתובת המייל - רדאר מנויים</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;padding:0;background:#fff8ec;}
+  table{border-collapse:collapse;}
+  img{border:0;display:block;outline:none;text-decoration:none;}
+  a{color:#763bf1;}
+  .btn:hover{background:#141120 !important;}
+  @media only screen and (max-width:620px){
+    .wrap{width:100% !important;}
+    .outer{padding:16px 6px !important;}
+    .px{padding-left:14px !important;padding-right:14px !important;}
+    .h1{font-size:38px !important;}
+    .h2{font-size:26px !important;}
+    .hero-gif{width:100px !important;height:100px !important;}
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#fff8ec;" dir="rtl">
+
+<!-- טקסט תצוגה מקדימה בתיבת הדואר -->
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#fff8ec;">
+  עוד צעד קטן: אימות המייל, והחשבון שלך ברדאר מנויים מוכן.&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff8ec" style="background:#fff8ec;" dir="rtl">
+<tr><td class="outer" align="center" style="padding:28px 12px;">
+
+  <table role="presentation" class="wrap" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;" dir="rtl">
+
+    <!-- לוגו -->
+    <tr><td align="right" class="px" style="padding:4px 8px 22px 8px;">
+      <a href="https://rinaati-sketch.github.io/subscription-radar-landing/" target="_blank" style="text-decoration:none;">
+        <img src="https://rinaati-sketch.github.io/subscription-radar-landing/email/email-logo.png" width="190" height="72" alt="רדאר מנויים" style="width:190px;height:auto;display:block;">
+      </a>
+    </td></tr>
+
+    <!-- כרטיס ראשי -->
+    <tr><td>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" bgcolor="#ffffff" style="border-collapse:separate;background:#ffffff;border:3px solid #141120;border-radius:22px;box-shadow:7px 7px 0 #141120;">
+
+        <!-- אזור פתיחה -->
+        <tr><td align="center" style="background:#c5f32d;border-bottom:3px solid #141120;border-radius:19px 19px 0 0;padding:34px 24px 26px;">
+          <img class="hero-gif" src="https://rinaati-sketch.github.io/subscription-radar-landing/email/email-radar.gif" width="120" height="120" alt="" style="width:120px;height:120px;display:block;margin:0 auto;">
+        </td></tr>
+
+        <tr><td class="px" align="right" dir="rtl" style="padding:34px 40px 8px;font-family:'Rubik',Arial,Helvetica,sans-serif;color:#141120;text-align:right;">
+          <span style="display:inline-block;background:#c5f32d;border:3px solid #141120;border-radius:999px;padding:5px 16px;font-weight:800;font-size:15px;box-shadow:3px 3px 0 #141120;">עוד צעד אחד</span>
+          <h1 class="h1" style="margin:22px 0 0;font-family:'Rubik',Arial,Helvetica,sans-serif;font-weight:900;font-size:46px;line-height:1.1;letter-spacing:-1px;color:#141120;">כמעט סיימנו!</h1>
+          <p style="margin:18px 0 0;font-size:19px;line-height:1.6;font-weight:500;color:#141120;">תודה על ההרשמה לרדאר מנויים.<br>כדי להפעיל את החשבון, צריך לאמת את כתובת המייל:</p>
+          <p dir="ltr" style="margin:10px 0 0;font-size:17px;line-height:1.5;font-weight:800;color:#763bf1;text-align:right;word-break:break-all;">{{ .Email }}</p>
+        </td></tr>
+
+        <!-- כפתור -->
+        <tr><td class="px" align="right" style="padding:26px 40px 10px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="border-collapse:separate;"><tr>
+            <td class="btn" bgcolor="#763bf1" style="background:#763bf1;border:3px solid #141120;border-radius:16px;box-shadow:5px 5px 0 #141120;">
+              <a href="{{ .ConfirmationURL }}" target="_blank" style="display:inline-block;padding:16px 40px;font-family:'Rubik',Arial,Helvetica,sans-serif;font-size:20px;font-weight:800;color:#ffffff;text-decoration:none;">אימות המייל</a>
+            </td>
+          </tr></table>
+          <p style="margin:18px 0 0;font-family:'Rubik',Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;font-weight:500;color:#4c4a62;text-align:right;">הכפתור לא עובד? אפשר להעתיק את הקישור הזה לדפדפן:</p>
+          <p dir="ltr" style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#763bf1;text-align:right;word-break:break-all;"><a href="{{ .ConfirmationURL }}" target="_blank" style="color:#763bf1;">{{ .ConfirmationURL }}</a></p>
+        </td></tr>
+
+        <!-- הערה -->
+        <tr><td class="px" align="right" dir="rtl" style="padding:22px 40px 6px;font-family:'Rubik',Arial,Helvetica,sans-serif;text-align:right;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="border-collapse:separate;background:#fefcf6;border:3px solid #141120;border-radius:16px;">
+            <tr><td align="right" style="padding:14px 18px;font-size:15px;line-height:1.6;font-weight:500;color:#4c4a62;text-align:right;">לא נרשמת לרדאר מנויים? אפשר להתעלם מהמייל הזה, ולא ייפתח חשבון.</td></tr>
+          </table>
+        </td></tr>
+
+        <!-- חתימה -->
+        <tr><td class="px" align="right" dir="rtl" style="padding:24px 40px 34px;font-family:'Rubik',Arial,Helvetica,sans-serif;color:#141120;text-align:right;">
+          <div style="border-top:3px dashed #141120;padding-top:20px;font-size:16px;line-height:1.6;font-weight:500;">
+            בברכה,<br><b style="font-weight:800;">רינה אטיאס</b><br>רדאר מנויים
+          </div>
+        </td></tr>
+
+      </table>
+    </td></tr>
+
+    <!-- תחתית -->
+    <tr><td align="center" style="padding:28px 16px 8px;font-family:'Rubik',Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;color:#4c4a62;font-weight:500;">
+      
+      <a href="https://rinaati-sketch.github.io/subscription-radar-landing/" target="_blank" style="color:#763bf1;font-weight:700;">רדאר מנויים</a>
+      &nbsp;|&nbsp;
+      <a href="https://rinaati-sketch.github.io/subscription-radar-landing/accessibility.html" target="_blank" style="color:#763bf1;font-weight:700;">הצהרת נגישות</a>
+    </td></tr>
+
+  </table>
+</td></tr>
+</table>
+</body>
+</html>
