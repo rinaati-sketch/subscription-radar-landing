@@ -133,7 +133,7 @@
         <div class="clock" aria-hidden="true"><b>5</b><span>דקות</span></div>
         <h1>קובעים שיחה קצרה של 5 דקות</h1>
       </div>
-      <p class="lead">משאירים שם וטלפון, ונחזור אליכם בזמן שנוח לכם לשיחה קצרה השבוע. בשיחה נעבור יחד על המנויים שלכם ונראה איך הרדאר עובד.</p>
+      <p class="lead">משאירים שם, מייל וטלפון, ונחזור אליכם בזמן שנוח לכם לשיחה קצרה השבוע. בשיחה נעבור יחד על המנויים שלכם ונראה איך הרדאר עובד.</p>
       <p class="callback">נחזור אליכם תוך 2 ימי עסקים לכל היותר.</p>
       <p class="req">כל השדות חובה.</p>
 
@@ -142,6 +142,11 @@
           <label for="name">שם מלא</label>
           <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-err">
           <div class="err" id="name-err">יש להזין שם מלא.</div>
+        </div>
+        <div class="field">
+          <label for="email">מייל</label>
+          <input id="email" name="email" type="email" dir="ltr" autocomplete="email" inputmode="email" placeholder="name@example.com" maxlength="254" required aria-describedby="email-err">
+          <div class="err" id="email-err">יש להזין כתובת מייל תקינה.</div>
         </div>
         <div class="field">
           <label for="phone">טלפון</label>
@@ -185,6 +190,19 @@
   // בדיקת מספר טלפון ישראלי לפי קידומות. מחזיר הודעת שגיאה, או מחרוזת ריקה אם המספר תקין.
   // נייד: 05X + 7 ספרות (10 ספרות). מספרי 07X: 10 ספרות. קווי: 02/03/04/08/09 + 7 ספרות (9 ספרות).
   // מותר להקליד מקפים, רווחים, סוגריים וקידומת +972.
+  // בדיקת כתובת מייל: חלק לפני @, דומיין עם נקודה וסיומת של 2 אותיות לפחות, בלי רווחים.
+  function emailError(v) {
+    const e = v.trim();
+    if (!e) return 'יש להזין כתובת מייל.';
+    if (/\s/.test(e)) return 'כתובת מייל לא יכולה להכיל רווחים.';
+    if (/[^\x21-\x7E]/.test(e)) return 'כתובת מייל צריכה להיות באותיות באנגלית.';
+    if ((e.match(/@/g) || []).length !== 1) return 'כתובת מייל צריכה להכיל @ אחד, למשל name@example.com.';
+    const [user, domain] = e.split('@');
+    if (!user) return 'חסר החלק שלפני ה-@, למשל name@example.com.';
+    if (!/^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$/.test(user) || /^\.|\.$|\.\./.test(user)) return 'החלק שלפני ה-@ אינו תקין.';
+    if (!/^([A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/.test(domain)) return 'הדומיין אחרי ה-@ אינו תקין, למשל gmail.com.';
+    return '';
+  }
   function phoneError(v) {
     const raw = v.trim();
     if (!raw) return 'יש להזין מספר טלפון.';
@@ -201,6 +219,7 @@
   }
   const checks = {
     name: v => v.trim().length >= 2,
+    email: v => emailError(v) === '',
     phone: v => phoneError(v) === '',
     time: v => v !== ''
   };
@@ -210,6 +229,7 @@
     el.closest('.field').classList.toggle('has-error', !ok);
     el.setAttribute('aria-invalid', String(!ok));
     if (id === 'phone') document.getElementById('phone-err').textContent = phoneError(el.value) || 'יש להזין מספר טלפון תקין.';
+    if (id === 'email') document.getElementById('email-err').textContent = emailError(el.value) || 'יש להזין כתובת מייל תקינה.';
     return ok;
   }
   Object.keys(checks).forEach(id => {
@@ -228,9 +248,10 @@
     btn.disabled = true;
     const btnText = btn.textContent;
     btn.textContent = 'שולח...';
-    // שלושה שדות בלבד: שם מלא, טלפון, מתי נוח לדבר
+    // ארבעה שדות: שם מלא, מייל, טלפון, מתי נוח לדבר
     const payload = new URLSearchParams({
       full_name: document.getElementById('name').value.trim(),
+      email: document.getElementById('email').value.trim(),
       phone: document.getElementById('phone').value.trim(),
       best_time: document.getElementById('time').value
     });
